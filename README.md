@@ -32,7 +32,7 @@ yarn: `yarn add @bivarcs/emitter`
 
 ### CDN
 ```js
-<script src="https://unpkg.com/browse/@bivarcs/emitter@0.0.1/dist/js/emitter.min.js"></script>
+<script src="https://unpkg.com/@bivarcs/emitter/dist/js/emitter.min.js"></script>
 ```
 
 ## Document
