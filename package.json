@@ -1,6 +1,6 @@
 {
   "name": "@bivarcs/emitter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A generic event emitter class with hook and filter functionality.",
   "author": "bivarcs <bivarcs@gmail.com> (https://github.com/bivarcs)",
   "license": "MIT",
