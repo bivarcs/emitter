@@ -1,5 +1,29 @@
 # Emitter
-A general-purpose class for providing event functionality.
+![](https://img.shields.io/npm/types/@bivarcs/emitter)
+![](https://img.shields.io/node/v/@bivarcs/emitter)
+![](https://img.shields.io/github/license/bivarcs/emitter)
+
+A generic event emitter class with hook and filter functionality.
+
+## Demo
+https://bivarcs.github.io/emitter/demo/
+
+```js
+const emitter = new Emitter({
+  on: [
+    ["myhook", (event) => console.log("hook:" ,event.type, event)],
+    ["filter:myfilter", (event) => {
+      console.log("filter:", event.type, event);
+      return "new value";
+    }],
+  ],
+});
+
+emitter.hook("myhook", "some data");
+
+const newValue = emitter.filter("myfilter", "old value");
+console.log("newValue", newValue);
+```
 
 ## Installation
 ### Package Manager
@@ -8,13 +32,11 @@ yarn: `yarn add bivarcs/emitter`
 
 ### CDN
 ```js
-<script src=""></script>
+<script src="https://unpkg.com/browse/@bivarcs/emitter@0.0.1/dist/js/emitter.min.js"></script>
 ```
 
-<!--
 ## Document
-- API Documentation (via: [Typedoc](https://github.com/TypeStrong/typedoc))
--->
+- [API Documentation](https://bivarcs.github.io/emitter/docs/) (via: [Typedoc](https://github.com/TypeStrong/typedoc))
 
 ## Usage
 A hook event is a generic event.  
