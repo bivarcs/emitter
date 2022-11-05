@@ -1,0 +1,12 @@
+{
+  "out": "./docs/docs",
+  "exclude": [
+    "src/js/**/index.ts"
+  ],
+  "visibilityFilters": {
+    "protected": true,
+    "private": true,
+    "inherited": true,
+    "external": true,
+  }
+}

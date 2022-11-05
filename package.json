@@ -1,0 +1,72 @@
+{
+  "name": "@bivarcs/emitter",
+  "version": "0.0.1",
+  "description": "A generic event emitter class with hook and filter functionality.",
+  "author": "bivarcs <bivarcs@gmail.com> (https://github.com/bivarcs)",
+  "license": "MIT",
+  "main": "dist/js/emitter.cjs.js",
+  "module": "dist/js/emitter.esm.js",
+  "types": "dist/js/types/index.d.ts",
+  "svelte": "dist/js/emitter.esm.js",
+  "jsdelivr": "dist/js/emitter.min.js",
+  "unpkg": "dist/js/emitter.min.js",
+  "keywords": [
+    "emitter",
+    "typescript"
+  ],
+  "homepage": "https://github.com/bivarcs/emitter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bivarcs/emitter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bivarcs/emitter/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "@rollup/plugin-babel": "^6.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@types/node": "^18.11.9",
+    "babel-loader": "^9.0.1",
+    "esbuild": "^0.15.12",
+    "jsdoc": "^4.0.0",
+    "rollup": "^2.79.0",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-esbuild": "^4.10.1",
+    "tslib": "^2.4.0",
+    "typedoc": "^0.23.20",
+    "typescript": "^4.8.4",
+    "uglify-js": "^3.17.4"
+  },
+  "browserslist": [
+    "defaults and supports es6-module",
+    "maintained node versions"
+  ],
+  "scripts": {
+    "build:js": "node scripts/build-scripts.js",
+    "build:module": "node scripts/build-modules.js",
+    "build:types": "node scripts/build-types.js",
+    "build:docs": "node_modules/.bin/typedoc src/js/**/*.ts",
+    "check:types": "node_modules/.bin/tsc --noEmit"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    "./dist/": "./dist/",
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=16.14.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "com_bivarcs": {
+    "constructor": {
+      "name": "Emitter"
+    }
+  }
+}
