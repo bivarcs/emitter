@@ -28,7 +28,7 @@ console.log("newValue", newValue);
 ## Installation
 ### Package Manager
 npm: `npm i @bivarcs/emitter`  
-yarn: `yarn add bivarcs/emitter`  
+yarn: `yarn add @bivarcs/emitter`  
 
 ### CDN
 ```js
