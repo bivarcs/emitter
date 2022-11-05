@@ -1,6 +1,6 @@
 {
   "name": "@bivarcs/emitter",
-  "version": "0.0.2",
+  "version": "0.0.21",
   "description": "A generic event emitter class with hook and filter functionality.",
   "author": "bivarcs <bivarcs@gmail.com> (https://github.com/bivarcs)",
   "license": "MIT",
@@ -45,7 +45,7 @@
     "build:js": "node scripts/build-scripts.js",
     "build:module": "node scripts/build-modules.js",
     "build:types": "node scripts/build-types.js",
-    "build:docs": "node_modules/.bin/typedoc src/js/**/*.ts",
+    "build:docs": "node_modules/.bin/typedoc",
     "check:types": "node_modules/.bin/tsc --noEmit"
   },
   "files": [

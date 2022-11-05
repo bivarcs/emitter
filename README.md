@@ -74,8 +74,16 @@ const emitter = new Emitter({
 ### extends
 ```js
 class Hoge extends Emitter {
-  // ...
+  constructor(options) {
+    super(options);
+  }
 }
+
+new Hoge({
+  on: [
+    // ...
+  ],
+});
 ```
 
 ### on(), off()
