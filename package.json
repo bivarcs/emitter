@@ -11,8 +11,7 @@
   "jsdelivr": "dist/js/emitter.min.js",
   "unpkg": "dist/js/emitter.min.js",
   "keywords": [
-    "emitter",
-    "typescript"
+    "emitter"
   ],
   "homepage": "https://github.com/bivarcs/emitter",
   "repository": {
@@ -30,7 +29,6 @@
     "@types/node": "^18.11.9",
     "babel-loader": "^9.0.1",
     "esbuild": "^0.15.12",
-    "jsdoc": "^4.0.0",
     "rollup": "^2.79.0",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-esbuild": "^4.10.1",
