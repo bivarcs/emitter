@@ -102,7 +102,7 @@ export class Emitter {
   /**
    * Remove an hook or filter event.
    */
-  protected off(type: HookType | FilterType, callback: Listener): void {
+  off(type: HookType | FilterType, callback: Listener): void {
     if (this.event) {
       this.event = this.event.filter((entry) => {
         return !(type === entry[0] && callback === entry[1]);
@@ -113,7 +113,7 @@ export class Emitter {
   /**
    * Emit an filter event.
    */
-  protected filter(shortType: FilterShortType, data?: Data): any {
+  filter(shortType: FilterShortType, data?: Data): any {
     if (this.event) {
       var value;
 
@@ -140,7 +140,7 @@ export class Emitter {
   /**
    * Emit an hook event.
    */
-  protected hook(type: HookType, data?: Data): void {
+  hook(type: HookType, data?: Data): void {
     if (this.event) {
       this.event.forEach((entry) => {
         if (type === entry[0]) {
