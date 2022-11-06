@@ -167,7 +167,7 @@ export class Emitter {
   /**
    * Remove all events and stop functioning.
    */
-  protected destroy() {
+  destroy() {
     this.event = null;
   }
 }
