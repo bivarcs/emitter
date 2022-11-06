@@ -48,7 +48,7 @@
     "build:js": "node scripts/build-scripts.js",
     "build:module": "node scripts/build-modules.js",
     "build:types": "node scripts/build-types.js",
-    "build:docs": "node_modules/.bin/typedoc src/js/**/*.ts",
+    "build:docs": "node_modules/.bin/typedoc",
     "check:types": "node_modules/.bin/tsc --noEmit",
     "test": "node node_modules/jest/bin/jest.js"
   },
