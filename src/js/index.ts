@@ -1,3 +1,3 @@
-import { Emitter } from "./emitter"
+import { Emitter } from "./Emitter"
 
 export default Emitter;

@@ -1,6 +1,6 @@
 {
   "entryPoints": [
-    "src/js/emitter/class.ts"
+    "src/js/Emitter/class.ts"
   ],
   "navigationLinks": {
     "Github": "https://github.com/bivarcs/emitter",

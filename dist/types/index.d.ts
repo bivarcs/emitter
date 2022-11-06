@@ -75,19 +75,19 @@ declare class Emitter {
     /**
      * Remove an hook or filter event.
      */
-    protected off(type: HookType | FilterType, callback: Listener): void;
+    off(type: HookType | FilterType, callback: Listener): void;
     /**
      * Emit an filter event.
      */
-    protected filter(shortType: FilterShortType, data?: Data): any;
+    filter(shortType: FilterShortType, data?: Data): any;
     /**
      * Emit an hook event.
      */
-    protected hook(type: HookType, data?: Data): void;
+    hook(type: HookType, data?: Data): void;
     /**
      * Remove all events and stop functioning.
      */
-    protected destroy(): void;
+    destroy(): void;
 }
 
 export { Emitter as default };

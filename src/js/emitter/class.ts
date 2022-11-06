@@ -1,4 +1,9 @@
 /**
+ * hook type and filter type.
+ */
+export type Type = HookType | FilterType;
+
+/**
  * The name of the hook event type.
  * Cannot start with "filter:".
  */
