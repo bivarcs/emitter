@@ -93,7 +93,13 @@ export class Emitter {
     if (this.event && !this.event.some((entry) => {
       return type === entry[0] && callback === entry[1];
     })) {
-      this.event.push([type, callback, options || {},]);
+      this.event.push([type, callback, {
+        ...{
+          once: false,
+          order: 0,
+        },
+        ...options,
+      },]);
 
       this.event.sort((a, b) => (a[2].order || 0) - (b[2].order || 0));
     }
@@ -127,7 +133,7 @@ export class Emitter {
             type,
           } as Event);
 
-          if (entry[2]) {
+          if (entry[2].once) {
             this.off(type, entry[1]);
           }
         }
