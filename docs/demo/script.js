@@ -1,14 +1,11 @@
 const emitter = new Emitter({
   on: [
-    ["myhook", (event) => console.log("hook:", event.type, event)],
-    ["filter:myfilter", (event) => {
-      console.log("filter:", event.type, event);
-      return "new value";
+    ["myevent", (event) => {
+      console.log("event:", event);
+      console.log("event.type:", event.type);
+      console.log("event.data:", event.data);
     }],
   ],
 });
 
-emitter.hook("myhook", "some data");
-
-const newValue = emitter.filter("myfilter", "old value");
-console.log("newValue", newValue);
+emitter.emit("myevent", "some data");
