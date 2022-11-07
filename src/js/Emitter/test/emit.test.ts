@@ -1,19 +1,19 @@
 import { Emitter } from '../class';
 
-test('hook', () => {
+test('test', () => {
   const emitter = new Emitter;
 
-  let hookCount = 0;
+  let count = 0;
 
   emitter.on("test", (event) => {
     expect(event.data).toBe("hoge");
 
-    ++hookCount;
+    ++count;
   }, {
     once: true,
   });
 
-  emitter.hook("test", "hoge");
-  emitter.hook("test");
-  expect(hookCount).toBe(1);
+  emitter.emit("test", "hoge");
+  emitter.emit("test");
+  expect(count).toBe(1);
 });

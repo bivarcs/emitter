@@ -4,18 +4,18 @@ test('off()', () => {
   const emitter = new Emitter;
 
   // off
-  let hookCount = 0;
+  let count = 0;
 
   const listener = () => {
-    ++hookCount;
+    ++count;
   };
 
   emitter.on("test", listener);
-  emitter.hook("test");
-  emitter.hook("test");
+  emitter.emit("test");
+  emitter.emit("test");
 
   emitter.off("test", listener)
-  emitter.hook("test");
+  emitter.emit("test");
 
-  expect(hookCount).toBe(2);
+  expect(count).toBe(2);
 });

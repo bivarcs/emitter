@@ -3,7 +3,7 @@
 ![](https://img.shields.io/node/v/@bivarcs/emitter)
 ![](https://img.shields.io/github/license/bivarcs/emitter)
 
-A generic event emitter class with hook and filter functionality.
+A generic event emitter class.
 
 ## Demo
 https://bivarcs.github.io/emitter/demo/
@@ -11,18 +11,11 @@ https://bivarcs.github.io/emitter/demo/
 ```js
 const emitter = new Emitter({
   on: [
-    ["myhook", (event) => console.log("hook:" ,event.type, event)],
-    ["filter:myfilter", (event) => {
-      console.log("filter:", event.type, event);
-      return "new value";
-    }],
+    ["myevent", (event) => console.log("event:", event)],
   ],
 });
 
-emitter.hook("myhook", "some data");
-
-const newValue = emitter.filter("myfilter", "old value");
-console.log("newValue", newValue);
+emitter.emit("myevent", "some data");
 ```
 
 ## Installation
@@ -39,39 +32,26 @@ yarn: `yarn add @bivarcs/emitter`
 - [API Documentation](https://bivarcs.github.io/emitter/docs/) (via: [Typedoc](https://github.com/TypeStrong/typedoc))
 
 ## Usage
-A hook event is a generic event.  
-  
-A filter event is an event that returns a value.  
-Can be used to specify property values dynamically.  
-Filter events require a "filter:" prefix.
-
 ```js
 const emitter = new Emitter({
   on: [
     // [type, listener, options?]
-
-    // hook event
     ["test1", (event) => {
       console.log(event.type, event);
     }],
     ["test2", (event) => {
       console.log(event.type, event);
     }, {
-      once: false,
-      order: 1,  // Order when there is an event with the same name.
-    }],
-
-    // filter event
-    ["filter:disabled", (event) => {
-      const currentValue = event.data;
-      // something...
-      return "new value";
+      once: false,  // One-time run.
+      order: 1,  // Order in events of the same type.
     }],
   ],
 });
 ```
 
 ### extends
+Please create the extended class as follows.
+
 ```js
 class Hoge extends Emitter {
   constructor(options) {
@@ -91,37 +71,25 @@ There are also `on()` and `off()` methods.
 
 ```js
 const listener = (event) => {
-      console.log(event.type, event);
-    };
+  console.log(event.type, event);
+};
 
 // (type, listener, options?)
-emitter.on("test1", listener, {
-      once: false,
-      order: 1,  // Order when there is an event with the same name.
-    });
+emitter.on("test", listener, {
+  once: false,
+  order: 1,
+});
 
 // (type, listener)
-emitter.off("test1", listener);
+emitter.off("test", listener);
 ```
 
-### hook()
-Emit a hook event.
+### emit()
+Emit an event.
 
 ```js
-emitter.hook("test1");
-emitter.hook("test2", "some value");
-```
-
-### filter()
-Emit a filter event.  
-Omit the `"filter:"` prefix. (`"filter:disabled"` => `"disabled"`)
-
-```js
-const dynamicDisabled = emitter.filter("disabled");
-
-if (dynamicDisabled) {
-  // something...
-}
+emitter.emit("test1");
+emitter.emit("test2", "some value");
 ```
 
 ### event
@@ -129,9 +97,9 @@ Arguments passed to the callback function.
 
 ```js
 {
-  target: emitter,
+  target: emitter,  // instance
   type: "test1",
-  data: any,  // Optional. Second argument to `hook()` or `filter()`.
+  data: any,  // Optional. Second argument to `emit()`.
 }
 ```
 
