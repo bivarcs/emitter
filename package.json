@@ -1,7 +1,7 @@
 {
   "name": "@bivarcs/emitter",
-  "version": "0.0.5",
-  "description": "A generic event emitter class with hook and filter functionality.",
+  "version": "0.0.6",
+  "description": "A generic event emitter class.",
   "author": "bivarcs <bivarcs@gmail.com> (https://github.com/bivarcs)",
   "license": "MIT",
   "main": "dist/js/emitter.cjs.js",
@@ -40,13 +40,9 @@
     "typescript": "^4.8.4",
     "uglify-js": "^3.17.4"
   },
-  "browserslist": [
-    "defaults and supports es6-module",
-    "maintained node versions"
-  ],
   "scripts": {
-    "build:js": "node scripts/build-scripts.js",
-    "build:module": "node scripts/build-modules.js",
+    "build:scripts": "node scripts/build-scripts.js",
+    "build:modules": "node scripts/build-modules.js",
     "build:types": "node scripts/build-types.js",
     "build:docs": "node_modules/.bin/typedoc",
     "check:types": "node_modules/.bin/tsc --noEmit",

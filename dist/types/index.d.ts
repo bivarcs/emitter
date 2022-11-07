@@ -1,18 +1,7 @@
 /**
- * The name of the hook event type.
- * Cannot start with "filter:".
+ * event type.
  */
-declare type HookType = string;
-/**
- * The name of the filter event type.Requires "filter:" in prefix.
- * Specify with `on()` or `{ on: [...] }`.
- */
-declare type FilterType = `${"filter:"}${FilterShortType}`;
-/**
- * The name of the filter event type.
- * A string without the prefix from FilterType.
- */
-declare type FilterShortType = string;
+declare type Type = string;
 /**
  * Passed as an argument of the callback function.
  *
@@ -22,21 +11,21 @@ declare type FilterShortType = string;
  */
 declare type Event = {
     readonly target: object;
-    readonly type: HookType | FilterShortType;
+    readonly type: Type;
     readonly data?: Data;
 };
 /**
- * Passed as Event.data in the callback function.
+ * Passed as `event.data` in the callback function.
  */
 declare type Data = any;
 /**
- * A function called when a hook or filter occurs.
+ * A function called when a event occurs.
  */
-declare type Listener = (event: Event) => any;
+declare type Listener = (event: Event) => void;
 /**
  * Data for individual event listeners.
  */
-declare type Entry = [HookType | FilterType, Listener, ListenerOptions];
+declare type Entry = [Type, Listener, ListenerOptions];
 /**
  * A collection of Entry.
  */
@@ -44,8 +33,8 @@ declare type EntryList = Array<Entry>;
 /**
  * Options for event listeners.
  *
- * @property {boolean} once - If `true`, it will be discarded once.
- * @property {number} order - If there are events with the same name, the smaller number will be called first.  Default is `0`.
+ * once: One-time run.
+ * order: Order in events of the same type.
  */
 declare type ListenerOptions = {
     readonly once?: boolean;
@@ -54,36 +43,30 @@ declare type ListenerOptions = {
 /**
  * class options.
  *
- * @param {EntryList} on - Event listeners registered at instance initialization.
+ * on: Event listeners registered at instance initialization.
  */
 declare type Options = {
     on?: EntryList;
     [key: string]: any;
 };
 /**
- * A class with hook and filter functionality
- *
- * @typeParam event After `destroy()` it becomes `null`. After that, all operations are disabled.
+ * class
  */
 declare class Emitter {
-    private event;
+    private Emitter$entries;
     constructor(options?: Options);
     /**
-     * Add an hook or filter event.
+     * Add an event.
      */
-    on(type: HookType | FilterType, callback: Listener, options?: ListenerOptions): void;
+    on(type: Type, callback: Listener, options?: ListenerOptions): void;
     /**
-     * Remove an hook or filter event.
+     * Remove an event.
      */
-    off(type: HookType | FilterType, callback: Listener): void;
+    off(type: Type, callback: Listener): void;
     /**
-     * Emit an filter event.
+     * Emit an event.
      */
-    filter(shortType: FilterShortType, data?: Data): any;
-    /**
-     * Emit an hook event.
-     */
-    hook(type: HookType, data?: Data): void;
+    emit(type: Type, data?: Data): void;
     /**
      * Remove all events and stop functioning.
      */

@@ -1,25 +1,7 @@
 /**
- * hook type and filter type.
+ * event type.
  */
-export type Type = HookType | FilterType;
-
-/**
- * The name of the hook event type.
- * Cannot start with "filter:".
- */
-export type HookType = string;
-
-/**
- * The name of the filter event type.Requires "filter:" in prefix.
- * Specify with `on()` or `{ on: [...] }`.
- */
-export type FilterType = `${"filter:"}${FilterShortType}`;
-
-/**
- * The name of the filter event type.
- * A string without the prefix from FilterType.
- */
-export type FilterShortType = string;
+export type Type = string;
 
 /**
  * Passed as an argument of the callback function.
@@ -30,24 +12,24 @@ export type FilterShortType = string;
  */
 export type Event = {
   readonly target: object
-  readonly type: HookType | FilterShortType
+  readonly type: Type
   readonly data?: Data
 }
 
 /**
- * Passed as Event.data in the callback function.
+ * Passed as `event.data` in the callback function.
  */
 export type Data = any;
 
 /**
- * A function called when a hook or filter occurs.
+ * A function called when a event occurs.
  */
-export type Listener = (event: Event) => any;
+export type Listener = (event: Event) => void;
 
 /**
  * Data for individual event listeners.
  */
-export type Entry = [HookType | FilterType, Listener, ListenerOptions,]
+export type Entry = [Type, Listener, ListenerOptions,]
 
 /**
  * A collection of Entry.
@@ -57,8 +39,8 @@ export type EntryList = Array<Entry>
 /**
  * Options for event listeners.
  * 
- * @property {boolean} once - If `true`, it will be discarded once.
- * @property {number} order - If there are events with the same name, the smaller number will be called first.  Default is `0`.
+ * once: One-time run.
+ * order: Order in events of the same type.
  */
 export type ListenerOptions = {
   readonly once?: boolean
@@ -68,7 +50,7 @@ export type ListenerOptions = {
 /**
  * class options.
  * 
- * @param {EntryList} on - Event listeners registered at instance initialization.
+ * on: Event listeners registered at instance initialization.
  */
 export type Options = {
   on?: EntryList,
@@ -76,12 +58,12 @@ export type Options = {
 }
 
 /**
- * A class with hook and filter functionality
- * 
- * @typeParam event After `destroy()` it becomes `null`. After that, all operations are disabled.
+ * class
  */
 export class Emitter {
-  private event: EntryList | null = []
+  private Emitter$entries: {
+    [key: string]: EntryList
+  } = {}
 
   constructor(options?: Options) {
     if (options && options.on) {
@@ -92,13 +74,19 @@ export class Emitter {
   }
 
   /**
-   * Add an hook or filter event.
+   * Add an event.
    */
-  on(type: HookType | FilterType, callback: Listener, options?: ListenerOptions): void {
-    if (this.event && !this.event.some((entry) => {
+  on(type: Type, callback: Listener, options?: ListenerOptions): void {
+    let entries = this.Emitter$entries;
+
+    if (!entries[type] || !entries[type].some((entry) => {
       return type === entry[0] && callback === entry[1];
     })) {
-      this.event.push([type, callback, {
+      if (!entries[type]) {
+        entries[type] = [];
+      }
+
+      entries[type].push([type, callback, {
         ...{
           once: false,
           order: 0,
@@ -106,64 +94,39 @@ export class Emitter {
         ...options,
       },]);
 
-      this.event.sort((a, b) => (a[2].order || 0) - (b[2].order || 0));
+      entries[type].sort((a, b) => (a[2].order || 0) - (b[2].order || 0));
     }
   }
 
   /**
-   * Remove an hook or filter event.
+   * Remove an event.
    */
-  off(type: HookType | FilterType, callback: Listener): void {
-    if (this.event) {
-      this.event = this.event.filter((entry) => {
-        return !(type === entry[0] && callback === entry[1]);
+  off(type: Type, callback: Listener): void {
+    let entries = this.Emitter$entries;
+
+    if (entries[type]) {
+      entries[type] = entries[type].filter((entry) => {
+        return callback !== entry[1];
       });
     }
   }
 
   /**
-   * Emit an filter event.
+   * Emit an event.
    */
-  filter(shortType: FilterShortType, data?: Data): any {
-    if (this.event) {
-      var value;
+  emit(type: Type, data?: Data): void {
+    let entries = this.Emitter$entries;
 
-      this.event.forEach((entry) => {
-        var type = "filter:" + shortType as FilterType;
+    if (entries[type]) {
+      entries[type].forEach((entry) => {
+        entry[1]({
+          data,
+          target: this,
+          type,
+        } as Event);
 
-        if (type === entry[0]) {
-          value = entry[1]({
-            data,
-            target: this,
-            type,
-          } as Event);
-
-          if (entry[2].once) {
-            this.off(type, entry[1]);
-          }
-        }
-      });
-
-      return value;
-    }
-  }
-
-  /**
-   * Emit an hook event.
-   */
-  hook(type: HookType, data?: Data): void {
-    if (this.event) {
-      this.event.forEach((entry) => {
-        if (type === entry[0]) {
-          entry[1]({
-            data,
-            target: this,
-            type,
-          } as Event);
-
-          if (entry[2].once) {
-            this.off(type, entry[1]);
-          }
+        if (entry[2].once) {
+          this.off(type, entry[1]);
         }
       });
     }
@@ -173,6 +136,6 @@ export class Emitter {
    * Remove all events and stop functioning.
    */
   destroy() {
-    this.event = null;
+    this.Emitter$entries = {};
   }
 }
