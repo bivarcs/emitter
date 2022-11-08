@@ -39,7 +39,7 @@ export type EntryList = Array<Entry>
 /**
  * Options for event listeners.
  * 
- * once: One-time run.
+ * once: One-time run.  
  * order: Order in events of the same type.
  */
 export type ListenerOptions = {
