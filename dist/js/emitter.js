@@ -1,4 +1,4 @@
-/*! @bivarcs/emitter 0.0.6 | MIT | https://github.com/bivarcs/emitter */
+/*! @bivarcs/emitter 0.0.61 | MIT | https://github.com/bivarcs/emitter */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() : typeof define === 'function' && define.amd ? define(factory) : (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Emitter = factory());
 })(this, function () {

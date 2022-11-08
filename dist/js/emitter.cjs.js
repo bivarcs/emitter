@@ -1,4 +1,4 @@
-/*! @bivarcs/emitter 0.0.6 | MIT | https://github.com/bivarcs/emitter */
+/*! @bivarcs/emitter 0.0.61 | MIT | https://github.com/bivarcs/emitter */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
