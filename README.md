@@ -15,7 +15,9 @@ const emitter = new Emitter({
   ],
 });
 
-emitter.emit("myevent", "some data");
+emitter.emit("myevent", {
+  hoge: "fuga",
+});
 ```
 
 ## Installation
@@ -85,22 +87,41 @@ emitter.off("test", listener);
 ```
 
 ### emit()
-Emit an event.
+Emit an event.  
+The second argument is interpreted as `{data: value}` if it is not an object.
 
 ```js
 emitter.emit("test1");
-emitter.emit("test2", "some value");
-```
+/*
+The callback is received as the first argument.
 
-### event
-Arguments passed to the callback function.
-
-```js
 {
-  target: emitter,  // instance
   type: "test1",
-  data: any,  // Optional. Second argument to `emit()`.
+  target: instance,
 }
+*/
+
+emitter.emit("test2", {
+  hoge: "some value1",
+  fufa: "some value2",
+});
+/*
+{
+  type: "test2",
+  target: instance,
+  hoge: "some value1",
+  fufa: "some value2",
+}
+*/
+
+emitter.emit("test3", "some value");
+/*
+{
+  type: "test3",
+  target: instance,
+  data: "some value",
+}
+*/
 ```
 
 ### destroy()

@@ -4,27 +4,22 @@
 export type Type = string;
 
 /**
- * Passed as an argument of the callback function.
- * 
- * target: Instance that fired the event.  
- * type: The name of the event type.  
- * data: Event data passed to the callback.
- */
-export type Event = {
-  readonly target: object
-  readonly type: Type
-  readonly data?: Data
-}
-
-/**
- * Passed as `event.data` in the callback function.
+ * Second argument of `emit()`.
  */
 export type Data = any;
 
 /**
+ * Passed to the callback function.
+ */
+export type EmitterEvent = Data & {
+  readonly type: Type
+  readonly target: object
+}
+
+/**
  * A function called when a event occurs.
  */
-export type Listener = (event: Event) => void;
+export type Listener = (event: EmitterEvent) => void;
 
 /**
  * Data for individual event listeners.
@@ -114,22 +109,26 @@ export class Emitter {
   /**
    * Emit an event.
    */
-  emit(type: Type, data?: Data): void {
+  emit(type: Type, data?: Data): EmitterEvent {
     let entries = this.Emitter$entries;
 
-    if (entries[type]) {
+    let event: EmitterEvent = {
+      ...(data && "object" === typeof data && !Array.isArray(data) ? data : { data: data }),
+      type,
+      target: this,
+    };
+
+    if (entries[type] && entries[type].length) {
       entries[type].forEach((entry) => {
-        entry[1]({
-          data,
-          target: this,
-          type,
-        } as Event);
+        entry[1](event);
 
         if (entry[2].once) {
           this.off(type, entry[1]);
         }
       });
     }
+
+    return event;
   }
 
   /**

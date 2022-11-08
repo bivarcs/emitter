@@ -3,25 +3,20 @@
  */
 declare type Type = string;
 /**
- * Passed as an argument of the callback function.
- *
- * target: Instance that fired the event.
- * type: The name of the event type.
- * data: Event data passed to the callback.
- */
-declare type Event = {
-    readonly target: object;
-    readonly type: Type;
-    readonly data?: Data;
-};
-/**
- * Passed as `event.data` in the callback function.
+ * Second argument of `emit()`.
  */
 declare type Data = any;
 /**
+ * Passed to the callback function.
+ */
+declare type EmitterEvent = Data & {
+    readonly type: Type;
+    readonly target: object;
+};
+/**
  * A function called when a event occurs.
  */
-declare type Listener = (event: Event) => void;
+declare type Listener = (event: EmitterEvent) => void;
 /**
  * Data for individual event listeners.
  */
@@ -66,7 +61,7 @@ declare class Emitter {
     /**
      * Emit an event.
      */
-    emit(type: Type, data?: Data): void;
+    emit(type: Type, data?: Data): EmitterEvent;
     /**
      * Remove all events and stop functioning.
      */
