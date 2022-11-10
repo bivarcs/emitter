@@ -1,6 +1,6 @@
 {
   "name": "@bivarcs/emitter",
-  "version": "0.0.7",
+  "version": "0.0.71",
   "description": "A generic event emitter class.",
   "author": "bivarcs <bivarcs@gmail.com> (https://github.com/bivarcs)",
   "license": "MIT",
@@ -33,7 +33,7 @@
     "jest": "^29.2.2",
     "rollup": "^2.79.0",
     "rollup-plugin-dts": "^4.2.2",
-    "rollup-plugin-esbuild": "^4.10.2",
+    "rollup-plugin-esbuild": "^5.0.0",
     "ts-jest": "^29.0.3",
     "tslib": "^2.4.0",
     "typedoc": "^0.23.20",

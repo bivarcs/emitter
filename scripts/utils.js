@@ -56,9 +56,9 @@ exports.buildJs = async function (options) {
   });
 };
 
-const syncDir = function (src, dist) {
+const syncDir = (src, dist) => {
   if (fs.existsSync(src)) {
-    var stats = exists && fs.statSync(src);
+    var stats = fs.statSync(src);
 
     if (stats.isDirectory()) {
       fs.mkdirSync(dist);
